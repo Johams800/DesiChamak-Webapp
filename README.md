@@ -1,6 +1,6 @@
 # Django Simple E-Commerce Website with Payment
 
-This is a simple e-commerce website built with Django (Python) and PayPal is added as payment processor.
+This e-commerce website is built using Python and Django framework.
 
 ## Features of this Project
 
