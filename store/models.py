@@ -79,6 +79,7 @@ STATUS_CHOICES = (
     ('Cancelled', 'Cancelled')
 )
 
+
 class Order(models.Model):
     user = models.ForeignKey(User, verbose_name="User", on_delete=models.CASCADE)
     address = models.ForeignKey(Address, verbose_name="Shipping Address", on_delete=models.CASCADE)

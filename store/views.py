@@ -193,7 +193,7 @@ def minus_cart(request, cart_id):
 @login_required
 def checkout(request):
     user = request.user
-    address_id = request.GET.get('address')
+    #address_id = request.GET.get('address')
 
     #address = get_object_or_404(Address, id=address_id)
     address = Address.objects.filter(user=user)
