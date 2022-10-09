@@ -25,6 +25,7 @@ urlpatterns = [
     path('store/cust_messages/', views.cust_messages, name="cust_messages"),
     path('store/cust_returns/', views.cust_returns, name="cust_returns"),
     path('store/policy/', views.policy, name="policy"),
+    path('store/faq/', views.faq, name="faq"),
 
     path('shop/', views.shop, name="shop"),
 

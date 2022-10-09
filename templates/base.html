@@ -33,6 +33,7 @@
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
         <script src="{% static 'js/countries.json' %}"></script>
+
   </head>
   <body>
     <div class="page-holder">
@@ -46,3 +47,21 @@
       
       {% include 'footer.html' %}
       {% include 'scripts.html' %}
+    </div>
+    <script>
+        let coll = document.getElementsByClassName("faq-dropdown");
+        let i;
+        for (i = 0; i < coll.length; i++) {
+          coll[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            let content = this.nextElementSibling;
+            if (content.style.display === "block") {
+              content.style.display = "none";
+            } else {
+              content.style.display = "block";
+            }
+          });
+        }
+
+    </script>
+  </body>

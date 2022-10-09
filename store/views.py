@@ -237,3 +237,5 @@ def policy(request):
     return render(request, 'store/policy.html')
 
 
+def faq(request):
+    return render(request, 'store/faq.html')
