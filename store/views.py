@@ -1,11 +1,10 @@
 import django
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.models import User
-from .models import Address, Cart, Category, Order, Product, Contact_Us
-from django.shortcuts import redirect, render, get_object_or_404
-from .forms import RegistrationForm, AddressForm, ContactForm
 from django.contrib import messages
 from django.views import View
+from django.shortcuts import redirect, render, get_object_or_404
+from .models import Address, Cart, Category, Order, Product, Contact_Us
+from .forms import RegistrationForm, AddressForm, ContactForm
 import decimal
 from django.contrib.auth.decorators import login_required, permission_required
 from django.utils.decorators import method_decorator  # for Class Based Views
@@ -29,7 +28,6 @@ def detail(request, slug):
     context = {
         'product': product,
         'related_products': related_products,
-
     }
     return render(request, 'store/detail.html', context)
 
@@ -191,22 +189,38 @@ def minus_cart(request, cart_id):
 
 
 @login_required
+# def checkout(request):
+#     user = request.user
+#     #address_id = request.GET.get('address')
+#
+#     #address = get_object_or_404(Address, id=address_id)
+#     address = Address.objects.filter(user=user)
+#     # address = Address.objects.filter(user=request.user, default=True)
+#     # Get all the products of User in Cart
+#     cart = Cart.objects.filter(user=user)
+#     for c in cart:
+#         # Saving all the products from Cart to Order
+#         Order(user=user, address=address.first(), product=c.product, quantity=c.quantity).save()
+#         # And Deleting from Cart
+#         c.delete()
+#     #return redirect('store:orders')
+#     return render(request, 'store/checkout.html')
+
+@login_required
 def checkout(request):
     user = request.user
-    #address_id = request.GET.get('address')
-
-    #address = get_object_or_404(Address, id=address_id)
-    address = Address.objects.filter(user=user)
-    # address = Address.objects.filter(user=request.user, default=True)
+    ad = Address.objects.all()
+    # address_id = request.GET.get('address')
+    address_id = Address.objects.filter(user__address__in=ad)
+    address = get_object_or_404(Address, id=address_id)
     # Get all the products of User in Cart
     cart = Cart.objects.filter(user=user)
     for c in cart:
         # Saving all the products from Cart to Order
-        Order(user=user, address=address.first(), product=c.product, quantity=c.quantity).save()
+        Order(user=user, address=address, product=c.product, quantity=c.quantity).save()
         # And Deleting from Cart
         c.delete()
-    #return redirect('store:orders')
-    return render(request, 'store/checkout.html')
+    return redirect('store:orders')
 
 
 @login_required
