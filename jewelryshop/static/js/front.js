@@ -76,4 +76,45 @@ $.getJSON('js/countries.json', function (data) {
     });
 })
 
-
+function validateForm() {
+    let x = document.forms['billing']['firstName'].value;
+    if (x == "") {
+        alert("Enter a valid first name");
+        return false;
+    }
+    let x1 = document.forms['billing']['lastName'].value;
+    if (x1 == "") {
+        alert("Enter a valid last name");
+        return false;
+    }
+    let x2 = document.forms['billing']['email'].value;
+    if (x2 == "") {
+        alert("Enter a valid email address");
+        return false;
+    }
+    let x3 = document.forms['billing']['phone'].value;
+    if (x3 == "") {
+        alert("Enter a valid phone number");
+        return false;
+    }
+    let x4 = document.forms['billing']['country'].value;
+    if (x4 == "") {
+        alert("Enter a valid country");
+        return false;
+    }
+    let x5 = document.forms['billing']['address'].value;
+    if (x5 == "") {
+        alert("Enter a valid address");
+        return false;
+    }
+    let x6 = document.forms['billing']['city'].value;
+    if (x6 == "") {
+        alert("Enter a valid city");
+        return false;
+    }
+    let x7 = document.forms['billing']['state'].value;
+    if (x7 == "") {
+        alert("Enter a valid state");
+        return false;
+    }
+}

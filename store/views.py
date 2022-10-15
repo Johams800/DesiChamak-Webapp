@@ -8,6 +8,7 @@ from .forms import RegistrationForm, AddressForm, ContactForm
 import decimal
 from django.contrib.auth.decorators import login_required, permission_required
 from django.utils.decorators import method_decorator  # for Class Based Views
+from django.urls import reverse_lazy
 
 
 # Create your views here.
@@ -49,6 +50,18 @@ def category_products(request, slug):
     return render(request, 'store/category_products.html', context)
 
 
+class ContactUsView(View):
+    def get(self, request):
+        form = ContactForm
+        return render(request, 'store/contact_us.html', {'form': form})
+
+    def post(self, request):
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            form.save()
+        return render(request, 'store/confirmation.html')
+
+
 # Authentication Starts Here
 
 class RegistrationView(View):
@@ -62,19 +75,6 @@ class RegistrationView(View):
             messages.success(request, "Congratulations! Registration Successful!")
             form.save()
         return render(request, 'account/register.html', {'form': form})
-
-
-
-class ContactUsView(View):
-    def get(self, request):
-        form = ContactForm
-        return render(request, 'store/contact_us.html', {'form': form})
-
-    def post(self, request):
-        form = ContactForm(request.POST)
-        if form.is_valid():
-            form.save()
-        return render(request, 'store/confirmation.html')
 
 
 @login_required
@@ -117,7 +117,7 @@ def add_to_cart(request):
     product_id = request.GET.get('prod_id')
     product = get_object_or_404(Product, id=product_id)
 
-    # Check whether the Product is alread in Cart or Not
+    # Check whether the Product is already in Cart or Not
     item_already_in_cart = Cart.objects.filter(product=product_id, user=user)
     if item_already_in_cart:
         cp = get_object_or_404(Cart, product=product_id, user=user)
@@ -150,7 +150,6 @@ def cart(request):
     context = {
         'cart_products': cart_products,
         'amount': amount,
-        'shipping_amount': shipping_amount,
         'total_amount': amount + shipping_amount,
         'addresses': addresses,
     }
@@ -189,42 +188,37 @@ def minus_cart(request, cart_id):
 
 
 @login_required
-# def checkout(request):
-#     user = request.user
-#     #address_id = request.GET.get('address')
-#
-#     #address = get_object_or_404(Address, id=address_id)
-#     address = Address.objects.filter(user=user)
-#     # address = Address.objects.filter(user=request.user, default=True)
-#     # Get all the products of User in Cart
-#     cart = Cart.objects.filter(user=user)
-#     for c in cart:
-#         # Saving all the products from Cart to Order
-#         Order(user=user, address=address.first(), product=c.product, quantity=c.quantity).save()
-#         # And Deleting from Cart
-#         c.delete()
-#     #return redirect('store:orders')
-#     return render(request, 'store/checkout.html')
-
-@login_required
 def checkout(request):
     user = request.user
-    ad = Address.objects.all()
-    # address_id = request.GET.get('address')
-    address_id = Address.objects.filter(user__address__in=ad)
-    address = get_object_or_404(Address, id=address_id)
-    # Get all the products of User in Cart
-    cart = Cart.objects.filter(user=user)
-    for c in cart:
-        # Saving all the products from Cart to Order
-        Order(user=user, address=address, product=c.product, quantity=c.quantity).save()
-        # And Deleting from Cart
-        c.delete()
-    return redirect('store:orders')
+    amount = decimal.Decimal(0)
+    total_amount = decimal.Decimal(0)
+    addresses = Address.objects.filter(user=user).first()
+    cart_products = Cart.objects.filter(user=user)
+
+    cp = [p for p in Cart.objects.all() if p.user == user]
+    if cp:
+        for p in cp:
+            amount = (p.quantity * p.product.price)
+            total_amount += amount
+    context = {
+        'cart_products': cart_products,
+        'amount': amount,
+        'total_amount': total_amount,
+        'addresses': addresses,
+    }
+    return render(request, 'store/checkout.html', context)
 
 
 @login_required
 def orders(request):
+    user = request.user
+    cart = Cart.objects.filter(user=user)
+    addresses = Address.objects.filter(user=user).first()
+    for c in cart:
+        # Saving all the products from Cart to Order
+        Order(user=user, address=addresses, product=c.product, quantity=c.quantity).save()
+        # And Deleting from Cart
+        c.delete()
     all_orders = Order.objects.filter(user=request.user).order_by('-ordered_date')
     return render(request, 'store/orders.html', {'orders': all_orders})
 

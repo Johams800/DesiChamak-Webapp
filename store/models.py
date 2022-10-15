@@ -11,7 +11,7 @@ class Address(models.Model):
     country = models.CharField(max_length=150, verbose_name="Country", default="United States")
 
     def __str__(self):
-        return self.locality
+        return self.locality + " " + self.city + " " + self.state + " " + self.country
 
 
 class Category(models.Model):

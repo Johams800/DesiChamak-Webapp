@@ -1,7 +1,6 @@
 from django.contrib.auth import password_validation
-from store.models import Address
+from .models import Address, Contact_Us
 from django import forms
-import django
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UsernameField, PasswordChangeForm, PasswordResetForm, SetPasswordForm
 from django.db import models
@@ -9,7 +8,6 @@ from django.db.models import fields
 from django.forms import widgets
 from django.forms.fields import CharField
 from django.utils.translation import gettext, gettext_lazy as _
-from .models import Contact_Us
 
 
 
@@ -36,8 +34,7 @@ class AddressForm(forms.ModelForm):
         fields = ['locality', 'city', 'state', 'country']
         widgets = {'locality':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Popular Place like Restaurant, Religious Site, etc.'}),
                    'city':forms.TextInput(attrs={'class':'form-control', 'placeholder':'City'}),
-                   'state':forms.TextInput(attrs={'class':'form-control', 'placeholder':'State or Province'}),
-                   'country':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Country'})}
+                   'state':forms.TextInput(attrs={'class':'form-control', 'placeholder':'State or Province'})}
 
 
 class PasswordChangeForm(PasswordChangeForm):
