@@ -28,7 +28,7 @@
     top: 23px;
     left: 31px;
 }
-.faq-dropdown:active:after {
+.faq-dropdown.active:after {
     content: "\2B9F";
 }
 .faq-panel {
