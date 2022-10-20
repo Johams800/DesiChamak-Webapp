@@ -32,7 +32,7 @@
 
                     {% for order in orders %}
                     <tr>
-                      <td>{{forloop.counter}}</td>
+                      <td>{{forloop.00counter}}</td>
                       <td>{{order.product.title}}</td>
                       <td>
                         {% if order.product.product_image %}
@@ -49,32 +49,32 @@
 
                         {% if order.status == 'Accepted' %}
                         <div class="bg-light border border-primary">
-                            <div class="p-3 bg-primary" style="width:0;"></div>
+                            <div class="p-2 bg-primary-light" style="width:0;"></div>
                         </div>
                         {% endif %}
 
                         {% if order.status == 'Packed' %}
                         <div class="bg-light border border-primary">
-                            <div class="p-3 bg-primary" style="width:40%;"></div>
+                            <div class="p-2 bg-primary" style="width:40%;"></div>
                         </div>
                         {% endif %}
                         
                         
                         {% if order.status == 'On The Way' %}
                         <div class="bg-light border border-primary">
-                            <div class="p-3 bg-primary" style="width:70%;"></div>
+                            <div class="p-2 bg-primary" style="width:70%;"></div>
                         </div>
                         {% endif %}
                         
                         {% if order.status == 'Delivered' %}
-                        <div class="bg-light border border-primary">
-                            <div class="p-3 bg-primary" style="width:100%;"></div>
+                        <div class="bg-light border border-success">
+                            <div class="p-2 bg-success" style="width:100%;"></div>
                         </div>
                         {% endif %}
 
                         {% if order.status == 'Cancelled' %}
                         <div class="bg-light border border-danger">
-                            <div class="p-3 bg-danger" style="width:100%;"></div>
+                            <div class="p-2 bg-danger" style="width:100%;"></div>
                         </div>
                         {% endif %}
                         
