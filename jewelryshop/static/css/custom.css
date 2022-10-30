@@ -1,0 +1,39 @@
+/* your styles go here */
+.carousel-indicators {
+    background-color: darkgoldenrod;
+    width: 100%;
+    margin: auto;
+}
+.h5 {
+    font-size: 16px;
+    font-weight: bold;
+}
+.faq-dropdown {
+    position: relative !important;
+    padding: 1rem 1rem;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 1, 1);
+    transition-property: color, background-color;
+}
+.faq-dropdown:hover {
+    background-color: #b9bbbe;
+}
+.faq-dropdown:after {
+    content: "\27A4";
+    color: gold;
+    /*font-weight: bold;*/
+    float: left;
+    margin-right: 20px;
+    top: 23px;
+    left: 31px;
+}
+.faq-dropdown.active:after {
+    content: "\2B9F";
+}
+.faq-panel {
+    display: none;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    padding: 0 30px;
+}
