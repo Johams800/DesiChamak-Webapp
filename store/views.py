@@ -1,6 +1,7 @@
 import django
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.core.paginator import Paginator
 from django.views import View
 from django.shortcuts import redirect, render, get_object_or_404
 from .models import Address, Cart, Category, Order, Product, Contact_Us
@@ -47,7 +48,11 @@ def category_products(request, slug):
         'products': products,
         'categories': categories,
     }
-    return render(request, 'store/category_products.html', context)
+    paginator = Paginator(products, 12)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    # return render(request, 'store/category_products.html', context)
+    return render(request, 'store/category_products.html', {'products': products, 'page_obj': page_obj})
 
 
 class ContactUsView(View):
