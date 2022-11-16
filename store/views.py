@@ -48,11 +48,11 @@ def category_products(request, slug):
         'products': products,
         'categories': categories,
     }
-    paginator = Paginator(products, 12)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-    # return render(request, 'store/category_products.html', context)
-    return render(request, 'store/category_products.html', {'products': products, 'page_obj': page_obj})
+    #paginator = Paginator(products, 12)
+    #page_number = request.GET.get('page')
+    #page_obj = paginator.get_page(page_number)
+    return render(request, 'store/category_products.html', context)
+    #return render(request, 'store/category_products.html', {'products': products, 'page_obj': page_obj})
 
 
 class ContactUsView(View):
