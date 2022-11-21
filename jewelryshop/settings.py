@@ -15,8 +15,21 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '3%y3laftm62q0zaj+s7#p-xqq9(&#q+)s8)p-&#&bz*0$!xu$0')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
+#DEBUG = False
+
+#SECURE_HSTS_SECONDS = 3600
+
+SESSION_COOKIE_SECURE = True
+
+CSRF_COOKIE_SECURE = True
+
+#SECURE_HSTS_PRELOAD = True
+
+#SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+
+#SECURE_SSL_REDIRECT = True
+
 
 ALLOWED_HOSTS = ['*']
 
@@ -103,7 +116,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'EST'
 
 USE_I18N = True
 
