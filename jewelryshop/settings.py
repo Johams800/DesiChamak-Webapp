@@ -15,20 +15,20 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY', 'default_value')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
-#DEBUG = False
+#DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
+DEBUG = False
 
-#SECURE_HSTS_SECONDS = 3600
+SECURE_HSTS_SECONDS = 3600
 
-#SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
 
-#CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 
-#SECURE_HSTS_PRELOAD = True
+SECURE_HSTS_PRELOAD = True
 
-#SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 
-#SECURE_SSL_REDIRECT = True
+SECURE_SSL_REDIRECT = True
 
 
 ALLOWED_HOSTS = ['*']
